@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include ipeng_erpnext *.css
+recursive-include ipeng_erpnext *.csv
+recursive-include ipeng_erpnext *.html
+recursive-include ipeng_erpnext *.ico
+recursive-include ipeng_erpnext *.js
+recursive-include ipeng_erpnext *.json
+recursive-include ipeng_erpnext *.md
+recursive-include ipeng_erpnext *.png
+recursive-include ipeng_erpnext *.py
+recursive-include ipeng_erpnext *.svg
+recursive-include ipeng_erpnext *.txt
+recursive-exclude ipeng_erpnext *.pyc
