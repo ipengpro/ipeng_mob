@@ -31,7 +31,7 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Employee Attendance Tool": "public/js/employee_attendance_tool.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -133,7 +133,8 @@ app_license = "MIT"
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"erpnext.hr.utils.get_employee_fields_label": "ipeng_erpnext.utils.get_employee_fields_label"
+	"erpnext.hr.utils.get_employee_fields_label": "ipeng_erpnext.utils.get_employee_fields_label",
+	"erpnext.hr.doctype.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance": "ipeng_erpnext.hr.employee_attendance_tool.mark_employee_attendance"
 }
 #
 # each overriding function accepts a `data` argument;
