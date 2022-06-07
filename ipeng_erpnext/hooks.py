@@ -134,8 +134,9 @@ doctype_js = {"Employee Attendance Tool": "public/js/employee_attendance_tool.js
 #
 override_whitelisted_methods = {
 	"erpnext.hr.utils.get_employee_fields_label": "ipeng_erpnext.utils.get_employee_fields_label",
-	"erpnext.hr.doctype.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance": "ipeng_erpnext.hr.employee_attendance_tool.mark_employee_attendance"
+	"erpnext.hr.doctype.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance": "ipeng_erpnext.hr.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance"
 }
+
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
