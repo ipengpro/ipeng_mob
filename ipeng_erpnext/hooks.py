@@ -87,9 +87,9 @@ doctype_js = {"Employee Attendance Tool": "public/js/employee_attendance_tool.js
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Salary Slip": "ipeng_erpnext.payroll.salary_slip.salary_slip.CustomSalarySlip",
+}
 
 # Document Events
 # ---------------
