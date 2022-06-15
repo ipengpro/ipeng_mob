@@ -9,6 +9,7 @@ from frappe.utils import (
 )
 
 from erpnext.payroll.doctype.salary_slip.salary_slip import SalarySlip
+from frappe.utils.data import add_to_date
 
 class CustomSalarySlip(SalarySlip):
 
@@ -61,7 +62,7 @@ class CustomSalarySlip(SalarySlip):
 				if start_date.day == 1 \
 					and start_date.month == end_date.month \
 					and start_date.year == end_date.year \
-					and (end_date.day >= 30 or (end_date.month == 2 and end_date.day >= 28)):
+					and add_to_date(start_date, months=1, days=-1) == end_date:
 					working_days_adjustment = 30 - working_days
 					self.total_working_days = 30
 
