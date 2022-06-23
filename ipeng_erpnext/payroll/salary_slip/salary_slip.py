@@ -11,7 +11,7 @@ from frappe.utils import (
     getdate,
 )
 
-from erpnext.payroll.doctype.salary_slip.salary_slip import SalarySlip, get_lwp_or_ppl_for_date
+from erpnext.payroll.doctype.salary_slip.salary_slip import SalarySlip
 from frappe.utils.data import add_to_date
 
 class CustomSalarySlip(SalarySlip):
@@ -91,7 +91,7 @@ class CustomSalarySlip(SalarySlip):
             promotion_working_days = None
             salary_difference = None
             promotion_present_days = None
-            
+
             employee = frappe.get_doc("Employee", self.employee)
             if employee.employment_type == "Full-time" and self.start_date_full_time and self.end_date_full_time:
                 start_date = self.start_date_full_time
@@ -237,3 +237,46 @@ class CustomSalarySlip(SalarySlip):
             },
             fields=["COUNT(*) as present_days"],
         )[0].present_days
+
+
+def get_lwp_or_ppl_for_date(date, employee, holidays):
+	LeaveApplication = frappe.qb.DocType("Leave Application")
+	LeaveType = frappe.qb.DocType("Leave Type")
+
+	is_half_day = (
+		frappe.qb.terms.Case()
+		.when(
+			(
+				(LeaveApplication.half_day_date == date)
+				| (LeaveApplication.from_date == LeaveApplication.to_date)
+			),
+			LeaveApplication.half_day,
+		)
+		.else_(0)
+	).as_("is_half_day")
+
+	query = (
+		frappe.qb.from_(LeaveApplication)
+		.inner_join(LeaveType)
+		.on((LeaveType.name == LeaveApplication.leave_type))
+		.select(
+			LeaveApplication.name,
+			LeaveType.is_ppl,
+			LeaveType.fraction_of_daily_salary_per_leave,
+			(is_half_day),
+		)
+		.where(
+			(((LeaveType.is_lwp == 1) | (LeaveType.is_ppl == 1)))
+			& (LeaveApplication.docstatus == 1)
+			& (LeaveApplication.status == "Approved")
+			& (LeaveApplication.employee == employee)
+			& ((LeaveApplication.salary_slip.isnull()) | (LeaveApplication.salary_slip == ""))
+			& ((LeaveApplication.from_date <= date) & (date <= LeaveApplication.to_date))
+		)
+	)
+
+	# if it's a holiday only include if leave type has "include holiday" enabled
+	if date in holidays:
+		query = query.where((LeaveType.include_holiday == "1"))
+
+	return query.run(as_dict=True)
