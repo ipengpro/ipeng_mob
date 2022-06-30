@@ -188,43 +188,15 @@ class CustomSalarySlip(SalarySlip):
         if not promotion:
             return
 
-        promotion_details = []
-        promotion_details = frappe.db.get_all(
+        salary_difference_detail = frappe.db.get_all(
             'Employee Property History', 
-            filters={'parent': promotion.name},
+            filters={'parent': promotion.name, 'fieldname': 'current_salary'},
             fields={'property', 'fieldname', 'current', 'new'}
         )
-        
-        employee = frappe.get_doc('Employee', self.employee)
-        old_ranking = [employee.grade, employee.rate, employee.level, employee.designation_category]
-        new_ranking = [employee.grade, employee.rate, employee.level, employee.designation_category]
-
-        for detail in promotion_details:
-            if detail['fieldname'] == 'grade':
-                new_ranking[0] = detail['new']
-            elif detail['fieldname'] == 'rate':
-                new_ranking[1] = detail['new']
-            elif detail['fieldname'] == 'level':
-                new_ranking[2] = detail['new']
-            elif detail['fieldname'] == 'designation_category':
-                new_ranking[3] = detail['new']
-                
-        old_salary = frappe.db.get_list('Salary Grade',
-                        filters={'grade': old_ranking[0], 'rate': old_ranking[1], 'level': old_ranking[2], 'designation_category': old_ranking[3]},
-                        pluck='amount',
-                        order_by='date desc')
-                        
-        new_salary = frappe.db.get_list('Salary Grade',
-                        filters={'grade': new_ranking[0], 'rate': new_ranking[1], 'level': new_ranking[2], 'designation_category': new_ranking[3]},
-                        pluck='amount',
-                        order_by='date desc')
-        
-        if old_salary and new_salary:
-            old_salary = old_salary[0]
-            new_salary = new_salary[0]
-
-            if new_salary != old_salary:
-                return new_salary - old_salary
+        if salary_difference_detail:
+            salary_difference_detail = salary_difference_detail[0]
+            if salary_difference_detail['new'] and salary_difference_detail['current']:
+                return float(salary_difference_detail['new']) - float(salary_difference_detail['current'])
 
     def get_present_days(self, start_date, end_date):
         return frappe.get_all(
