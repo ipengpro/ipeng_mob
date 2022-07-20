@@ -104,7 +104,11 @@ doc_events = {
 	"Employee Promotion": {
 		"on_submit": "ipeng_erpnext.hr.employee_work_history.employee_work_history.update_work_history_on_promotion",
 		"on_cancel": "ipeng_erpnext.hr.employee_work_history.employee_work_history.delete_work_history_on_promotion",
-	}
+	},
+	"Employee Transfer": {
+		"on_submit": "ipeng_erpnext.hr.employee_work_history.employee_work_history.update_work_history_on_transfer",
+		"on_cancel": "ipeng_erpnext.hr.employee_work_history.employee_work_history.delete_work_history_on_transfer",
+	},
 }
 
 # Scheduled Tasks

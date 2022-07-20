@@ -10,6 +10,19 @@ from erpnext.hr.doctype.employee_promotion.employee_promotion import EmployeePro
 from erpnext.hr.doctype.employee_transfer.employee_transfer import EmployeeTransfer
 
 
+def update_work_history_on_transfer(doc, method=None):
+        employee = frappe.get_doc("Employee", doc.employee)
+        employee = update_employee_work_history(
+            employee=employee, details=doc.transfer_details, date=doc.transfer_date
+        )
+        employee.save()
+
+def delete_work_history_on_transfer(doc, method=None):
+        employee = frappe.get_doc("Employee", doc.employee)
+        delete_employee_work_history(
+            employee=employee, details=doc.transfer_details, date=doc.transfer_date
+        )
+
 def update_work_history_on_promotion(doc, method=None):
         employee = frappe.get_doc("Employee", doc.employee)
         employee = update_employee_work_history(
