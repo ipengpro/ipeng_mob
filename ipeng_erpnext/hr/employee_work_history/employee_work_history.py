@@ -11,25 +11,21 @@ from erpnext.hr.doctype.employee_transfer.employee_transfer import EmployeeTrans
 
 
 def update_work_history_on_promotion(doc, method=None):
-        print("I M BEING CALLED LALALALALA")
         employee = frappe.get_doc("Employee", doc.employee)
         employee = update_employee_work_history(
-            employee, doc.promotion_details, date=doc.promotion_date
+            employee=employee, details=doc.promotion_details, date=doc.promotion_date
         )
         employee.save()
 
-def delete_work_history_on_promotion(doc):
+def delete_work_history_on_promotion(doc, method=None):
         employee = frappe.get_doc("Employee", doc.employee)
-        employee = delete_employee_work_history(
-            employee, doc.promotion_details, date=doc.promotion_date
+        delete_employee_work_history(
+            employee=employee, details=doc.promotion_details, date=doc.promotion_date
         )
-        employee.save()
 
 
 def update_employee_work_history(employee, details, date=None):
-    frappe.msgprint(str(employee.work_history))
     if not employee.work_history:
-        frappe.msgprint("byezbat dayman")
         employee.append(
             "work_history",
             {
@@ -59,7 +55,6 @@ def update_employee_work_history(employee, details, date=None):
             work_history[item.fieldname] = new_data
 
     if work_history:
-        frappe.msgprint("byezbat dayman2")
         work_history["from_date"] = date
         employee.append("work_history", work_history)
 
