@@ -42,7 +42,7 @@ def update_employee_work_history(employee, details, date=None):
                 "grade": employee.grade,
                 "rate": employee.rate,
                 "level": employee.level,
-                "salary": employee.current_salary,
+                "current_salary": employee.current_salary,
             },
         )
 
