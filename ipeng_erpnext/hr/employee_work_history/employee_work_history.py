@@ -1,14 +1,5 @@
 import frappe
 from frappe import _
-from frappe.model.document import Document
-from frappe.utils import (
-    get_datetime,
-    getdate,
-)
-from erpnext.hr.doctype.employee_work_history.employee_work_history import EmployeeWorkHistory
-from erpnext.hr.doctype.employee_promotion.employee_promotion import EmployeePromotion
-from erpnext.hr.doctype.employee_transfer.employee_transfer import EmployeeTransfer
-
 
 def update_work_history_on_transfer(doc, method=None):
         employee = frappe.get_doc("Employee", doc.employee)
