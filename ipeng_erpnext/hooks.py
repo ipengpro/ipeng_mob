@@ -95,13 +95,16 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 #	}
-# }
+	"Employee Promotion": {
+		"on_submit": "ipeng_erpnext.hr.employee_work_history.employee_work_history.update_work_history_on_promotion",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
