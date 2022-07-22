@@ -10,6 +10,23 @@ def gratuity_savings_return_validate(doc, method=None):
     if doc.docstatus == 1:
         doc.status = "Unpaid"
 
+def gratuity_savings_return_on_submit(doc, method=None):
+    if doc.pay_via_salary_slip:
+        create_additional_salary(doc)
+
+def create_additional_salary(doc):
+    if doc.pay_via_salary_slip:
+        additional_salary = frappe.new_doc("Additional Salary")
+        additional_salary.employee = doc.employee
+        additional_salary.salary_component = doc.salary_component
+        additional_salary.overwrite_salary_structure_amount = 0
+        additional_salary.amount = doc.amount
+        additional_salary.payroll_date = doc.payroll_date
+        additional_salary.company = doc.company
+        additional_salary.ref_doctype = doc.doctype
+        additional_salary.ref_docname = doc.name
+        additional_salary.submit()
+
 def calculate_amount(employee_name):
     data = {}
     data['amount'] = 0

@@ -111,7 +111,8 @@ doc_events = {
 		"on_cancel": "ipeng_erpnext.hr.employee_work_history.employee_work_history.delete_work_history_on_transfer",
 	},
 	"Gratuity Savings Return": {
-		"validate": "ipeng_erpnext.payroll.gratuity_savings_return.gratuity_savings_return.gratuity_savings_return_validate"
+		"validate": "ipeng_erpnext.payroll.gratuity_savings_return.gratuity_savings_return.gratuity_savings_return_validate",
+		"on_submit": "ipeng_erpnext.payroll.gratuity_savings_return.gratuity_savings_return.gratuity_savings_return_on_submit"
 	}
 }
 
