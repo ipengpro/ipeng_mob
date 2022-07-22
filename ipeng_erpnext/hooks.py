@@ -89,6 +89,7 @@ doctype_js = {"Employee Attendance Tool": "public/js/employee_attendance_tool.js
 
 override_doctype_class = {
 	"Salary Slip": "ipeng_erpnext.payroll.salary_slip.salary_slip.CustomSalarySlip",
+	"Gratuity": "ipeng_erpnext.payroll.gratuity.gratuity.CustomGratuity",
 }
 
 # Document Events
@@ -109,6 +110,9 @@ doc_events = {
 		"before_submit": "ipeng_erpnext.hr.employee_work_history.employee_work_history.update_work_history_on_transfer",
 		"on_cancel": "ipeng_erpnext.hr.employee_work_history.employee_work_history.delete_work_history_on_transfer",
 	},
+	"Gratuity Savings Return": {
+		"validate": "ipeng_erpnext.payroll.gratuity_savings_return.gratuity_savings_return.gratuity_savings_return_validate"
+	}
 }
 
 # Scheduled Tasks
@@ -142,7 +146,8 @@ doc_events = {
 #
 override_whitelisted_methods = {
 	"erpnext.hr.utils.get_employee_fields_label": "ipeng_erpnext.utils.get_employee_fields_label",
-	"erpnext.hr.doctype.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance": "ipeng_erpnext.hr.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance"
+	"erpnext.hr.doctype.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance": "ipeng_erpnext.hr.employee_attendance_tool.employee_attendance_tool.mark_employee_attendance",
+	"erpnext.payroll.doctype.gratuity.gratuity.calculate_work_experience_and_amount": "ipeng_erpnext.payroll.gratuity.gratuity.calculate_work_experience_and_amount",
 }
 
 #
